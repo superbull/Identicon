@@ -181,7 +181,13 @@ class Identicon
             }
         }
 
-        imagepng($image);
+        // resample image to the requested size if it is not
+        $imageCurrentSize = $this->pixelRatio * 12;
+        if ($imageCurrentSize !== $size) {
+            $image_p = imagecreatetruecolor($size, $size);
+            imagecopyresampled($image_p, $image, 0, 0, 0, 0, $size, $size, $imageCurrentSize, $imageCurrentSize);
+        }
+        imagepng($image_p);
     }
 
     /**
