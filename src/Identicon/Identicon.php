@@ -185,7 +185,8 @@ class Identicon
         $imageCurrentSize = $this->pixelRatio * 12;
         if ($imageCurrentSize !== $size) {
             $image_p = imagecreatetruecolor($size, $size);
-            imagecopyresampled($image_p, $image, 0, 0, 0, 0, $size, $size, $imageCurrentSize, $imageCurrentSize);
+            imagecolortransparent($image_p, $background);
+            imagecopyresized($image_p, $image, 0, 0, 0, 0, $size, $size, $imageCurrentSize, $imageCurrentSize);
             imagepng($image_p);
         } else {
             imagepng($image);
