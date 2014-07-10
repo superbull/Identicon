@@ -186,8 +186,10 @@ class Identicon
         if ($imageCurrentSize !== $size) {
             $image_p = imagecreatetruecolor($size, $size);
             imagecopyresampled($image_p, $image, 0, 0, 0, 0, $size, $size, $imageCurrentSize, $imageCurrentSize);
+            imagepng($image_p);
+        } else {
+            imagepng($image);
         }
-        imagepng($image_p);
     }
 
     /**
