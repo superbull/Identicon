@@ -42,7 +42,7 @@ class Identicon
     public function setSize($size)
     {
         $this->size = $size;
-        $this->pixelRatio = round($size / 5);
+        $this->pixelRatio = round($size / 12);
 
         return $this;
     }
@@ -151,7 +151,7 @@ class Identicon
         $this->setSize($size);
 
         // prepare the image
-        $image = imagecreatetruecolor($this->pixelRatio * 5, $this->pixelRatio * 5);
+        $image = imagecreatetruecolor($this->pixelRatio * 12, $this->pixelRatio * 12);
         $background = imagecolorallocate($image, 0, 0, 0);
         imagecolortransparent($image, $background);
 
@@ -163,9 +163,20 @@ class Identicon
 
         // draw the content
         foreach ($this->arrayOfSquare as $lineKey => $lineValue) {
+            if ($lineKey > 4) {
+                break;
+            }
+            
             foreach ($lineValue as $colKey => $colValue) {
                 if (true === $colValue) {
-                    imagefilledrectangle($image, $colKey * $this->pixelRatio, $lineKey * $this->pixelRatio, ($colKey + 1) * $this->pixelRatio, ($lineKey + 1) * $this->pixelRatio, $color);
+                    imagefilledrectangle(
+                        $image, 
+                        $colKey * $this->pixelRatio * 2 + $this->pixelRatio, 
+                        $lineKey * $this->pixelRatio * 2 + $this->pixelRatio, 
+                        ($colKey + 1) * $this->pixelRatio * 2 + $this->pixelRatio, 
+                        ($lineKey + 1) * $this->pixelRatio * 2 + $this->pixelRatio, 
+                        $color
+                    );
                 }
             }
         }
